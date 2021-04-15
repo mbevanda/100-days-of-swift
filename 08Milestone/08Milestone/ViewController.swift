@@ -68,10 +68,19 @@ class ViewController: UITableViewController {
             shoppingList.count
         }
         
-        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Item", for: indexPath)
-            cell.textLabel?.text = shoppingList[indexPath.row]
-            return cell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Item", for: indexPath)
+        cell.textLabel?.text = shoppingList[indexPath.row]
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (contextualAction, view, actionPerformed: (Bool) -> ()) in
+            self.shoppingList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)            
         }
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
 }
 
