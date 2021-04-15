@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UITableViewController {
     
     var shoppingList = [String]()
+    var item: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,31 @@ class ViewController: UITableViewController {
         present(ac, animated: true)
     }
     
+    func editItem (selected item: String, at indexPath: IndexPath) {
+        
+        let cancleAction: UIAlertAction
+        let addItemAction: UIAlertAction
+    
+        let ac = UIAlertController(title: "Edit Item", message: nil, preferredStyle: .alert)
+        
+        ac.addTextField(configurationHandler: {(textField : UITextField!) -> Void in
+            textField.text = item
+        })
+        
+        addItemAction = UIAlertAction(title: "Edit", style: .default) { [weak self, weak ac] action in
+            guard let newItem = ac?.textFields?[0].text else { return }
+            self?.shoppingList.remove(at: indexPath.row)
+            self?.tableView.deleteRows(at: [indexPath], with: .fade)
+            self?.submit(newItem)
+        }
+        
+        cancleAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        ac.addAction(addItemAction)
+        ac.addAction(cancleAction)
+        present(ac, animated: true)
+    }
+    
     func submit (_ item: String) {
         
         shoppingList.insert(item, at: 0)
@@ -63,6 +89,7 @@ class ViewController: UITableViewController {
         tableView.insertRows(at: [indexPath], with: .automatic)
         return
     }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             shoppingList.count
@@ -81,6 +108,18 @@ class ViewController: UITableViewController {
         }
         
         return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let edit = UIContextualAction(style: .normal, title: "Edit") { (contextualAction, view, actionPerformed: (Bool) -> ()) in
+            self.item = self.shoppingList[indexPath.row]
+            self.editItem(selected: self.item, at: indexPath)
+            
+            actionPerformed(true)
+        }
+        edit.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        
+        return UISwipeActionsConfiguration(actions: [edit])
     }
 }
 
