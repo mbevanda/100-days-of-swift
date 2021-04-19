@@ -15,6 +15,8 @@ class ViewController: UITableViewController {
         
         let urlString: String
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(openCredits))
+        
         if navigationController?.tabBarItem.tag == 0 {
             // urlString = "https://api.whitehouse.gov/v1/petitions.json?limit=100"
             urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
@@ -30,6 +32,12 @@ class ViewController: UITableViewController {
             }
         }
         showError()
+    }
+    
+    @objc func openCredits () {
+        let ac = UIAlertController(title: "Credits", message: "The data comes from the We The People API of the Whitehouse", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
     
     func parse (json: Data) {
