@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         view.addSubview(scoreLabel)
         
         cluesLablel = UILabel()
+        cluesLablel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         cluesLablel.translatesAutoresizingMaskIntoConstraints = false
         cluesLablel.font = UIFont.systemFont(ofSize: 24)
         cluesLablel.text = "CLUES"
@@ -35,6 +36,7 @@ class ViewController: UIViewController {
         view.addSubview(cluesLablel)
         
         answerLabel = UILabel()
+        answerLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         answerLabel.translatesAutoresizingMaskIntoConstraints = false
         answerLabel.font = UIFont.systemFont(ofSize: 24)
         answerLabel.text = "ANSWER"
@@ -60,6 +62,10 @@ class ViewController: UIViewController {
         clear.setTitle("CLEAR", for: .normal)
         view.addSubview(clear)
         
+        let buttonsView = UIView()
+        buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(buttonsView)
+        
         NSLayoutConstraint.activate([
             scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
@@ -78,14 +84,30 @@ class ViewController: UIViewController {
             submit.heightAnchor.constraint(equalToConstant: 44),
             clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
             clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
-            clear.heightAnchor.constraint(equalToConstant: 44)
+            clear.heightAnchor.constraint(equalToConstant: 44),
+            buttonsView.widthAnchor.constraint(equalToConstant: 750),
+            buttonsView.heightAnchor.constraint(equalToConstant: 320),
+            buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor, constant: 20),
+            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
         ])
         
-        // temporary for easier understanding
-        cluesLablel.backgroundColor = .red
-        answerLabel.backgroundColor = .blue
+        let width = 150
+        let height = 80
+        
+        for row in 0..<4 {
+            for column in 0..<5 {
+                let letterButton = UIButton(type: .system)
+                letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
+                letterButton.setTitle("XXX", for: .normal)
+                
+                let frame = CGRect(x: width * column, y: height * row, width: width, height: height)
+                letterButton.frame = frame
+                
+                buttonsView.addSubview(letterButton)
+                letterButtons.append(letterButton)
+            }
+        }
     }
-
-
 }
 
