@@ -14,9 +14,15 @@ class ViewController: UIViewController {
     var currentAnswer: UITextField!
     var scoreLabel: UILabel!
     var letterButtons = [UIButton]()
+    
+    var activatedButtons = [UIButton]()
+    var solutions = [String]()
+    
+    var score = 0
+    var level = 1
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
         
         view = UIView()
         view.backgroundColor = .white
@@ -53,11 +59,13 @@ class ViewController: UIViewController {
         view.addSubview(currentAnswer)
         
         let submit = UIButton(type: .system)
+        submit.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)
         submit.translatesAutoresizingMaskIntoConstraints = false
         submit.setTitle("SUBMIT", for: .normal)
         view.addSubview(submit)
         
         let clear = UIButton(type: .system)
+        clear.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
         clear.translatesAutoresizingMaskIntoConstraints = false
         clear.setTitle("CLEAR", for: .normal)
         view.addSubview(clear)
@@ -106,8 +114,60 @@ class ViewController: UIViewController {
                 
                 buttonsView.addSubview(letterButton)
                 letterButtons.append(letterButton)
+                
+                letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
             }
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadLevel()
+    }
+    
+    func loadLevel() {
+        //will store all the level's clues
+        var clueString = ""
+        //solutionString will store how many letters each answer is (in the same position as the clues)
+        var solutionString = ""
+        //letterBits is an array to store all letter groups: HA, UNT, ED, and so on.
+        var letterBits = [String]()
+        
+        if let levelFileUrl = Bundle.main.url(forResource: "level\(level)", withExtension: "txt") {
+            if let levelContents = try? String(contentsOf: levelFileUrl) {
+                var lines = levelContents.components(separatedBy: "\n")
+                lines.shuffle()
+                
+                for (index, line) in lines.enumerated() {
+                    let parts = line.components(separatedBy: ": ")
+                    let answer = parts[0]
+                    let clue = parts[1]
+                    
+                    clueString += "\(index + 1). \(clue)\n"
+
+                    let solutionWord = answer.replacingOccurrences(of: "|", with: "")
+                    solutionString += "\(solutionWord.count) letters\n"
+                    solutions.append(solutionWord)
+
+                    let bits = answer.components(separatedBy: "|")
+                    letterBits += bits
+                }
+            }
+        }
+        cluesLablel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+        answerLabel.text = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        letterBits.shuffle()
+
+        if letterBits.count == letterButtons.count {
+            for i in 0 ..< letterButtons.count {
+                letterButtons[i].setTitle(letterBits[i], for: .normal)
+            }
+        }
+    }
+    
+    @objc func letterTapped(_ sender: UIButton) {}
+    @objc func submitTapped(_ sender: UIButton) {}
+    @objc func clearTapped(_ sender: UIButton) {}
 }
 
