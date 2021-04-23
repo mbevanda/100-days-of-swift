@@ -112,6 +112,8 @@ class ViewController: UIViewController {
                 let letterButton = UIButton(type: .system)
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
                 letterButton.setTitle("XXX", for: .normal)
+                letterButton.layer.borderWidth = 1
+                letterButton.layer.borderColor = UIColor.lightGray.cgColor
                 
                 let frame = CGRect(x: width * column, y: height * row, width: width, height: height)
                 letterButton.frame = frame
