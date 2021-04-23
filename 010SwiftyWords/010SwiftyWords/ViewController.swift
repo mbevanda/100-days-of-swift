@@ -209,6 +209,11 @@ class ViewController: UIViewController {
             }
             
         }
+        else {
+            let ac = UIAlertController(title: nil , message: "You are wrong", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            present(ac, animated: true)
+        }
     }
     @objc func clearTapped(_ sender: UIButton) {
         currentAnswer.text = ""
