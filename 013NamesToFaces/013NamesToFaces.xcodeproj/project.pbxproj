@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76882C342641722000A3C7A2 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76882C332641722000A3C7A2 /* Person.swift */; };
 		76AD02CD26401B920002A4C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AD02CC26401B920002A4C4 /* AppDelegate.swift */; };
 		76AD02CF26401B920002A4C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AD02CE26401B920002A4C4 /* SceneDelegate.swift */; };
 		76AD02D126401B920002A4C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AD02D026401B920002A4C4 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		76882C332641722000A3C7A2 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		76AD02C926401B920002A4C4 /* 013NamesToFaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 013NamesToFaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76AD02CC26401B920002A4C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76AD02CE26401B920002A4C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				76AD02CC26401B920002A4C4 /* AppDelegate.swift */,
 				76AD02CE26401B920002A4C4 /* SceneDelegate.swift */,
 				76AD02D026401B920002A4C4 /* ViewController.swift */,
+				76882C332641722000A3C7A2 /* Person.swift */,
 				76AD02D226401B920002A4C4 /* Main.storyboard */,
 				76AD02E1264020A10002A4C4 /* PersonCell.swift */,
 				76AD02D526401B930002A4C4 /* Assets.xcassets */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76882C342641722000A3C7A2 /* Person.swift in Sources */,
 				76AD02D126401B920002A4C4 /* ViewController.swift in Sources */,
 				76AD02CD26401B920002A4C4 /* AppDelegate.swift in Sources */,
 				76AD02E2264020A10002A4C4 /* PersonCell.swift in Sources */,
