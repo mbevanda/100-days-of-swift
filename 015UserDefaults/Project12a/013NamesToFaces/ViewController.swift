@@ -15,6 +15,13 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        
+        let defaults = UserDefaults.standard
+        if let savedPeople = defaults.object(forKey: "people") as? Data {
+            if let decodedPeople = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedPeople) as? [Person] {
+                people = decodedPeople
+            }
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -49,6 +56,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         ac.addAction(UIAlertAction(title: "Delete" , style: .default ){ [weak self] _ in
             self?.people.remove(at: indexPath.item)
             self?.collectionView.deleteItems(at: [indexPath])
+            self?.save()
         })
         ac.addAction(UIAlertAction(title: "Rename" , style: .default){ [weak self] _ in
             self?.renamePerson(person)
@@ -66,6 +74,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
             person.name = newName
             
             self?.collectionView.reloadData()
+            self?.save()
         })
         
         present(ac, animated: true)
@@ -93,11 +102,19 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         collectionView.reloadData()
         
         dismiss(animated: true)
+        save()
     }
     
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
+    }
+    
+    func save() {
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: people, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "people")
+        }
     }
 }
 
