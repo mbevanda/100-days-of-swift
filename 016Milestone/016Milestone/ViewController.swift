@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    var userPhotos:[String] = ["Unknown"]
+    var userPhotos = [Photo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,6 @@ class ViewController: UITableViewController, UINavigationControllerDelegate, UII
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = userPhotos[indexPath.row]
         return cell
     }
     
@@ -54,6 +53,10 @@ class ViewController: UITableViewController, UINavigationControllerDelegate, UII
         if let jpegData = image.jpegData(compressionQuality: 0.8) {
             try? jpegData.write(to: imagePath)
         }
+        
+        let photo = Photo(name: "Unknown", image: imageName)
+        userPhotos.append(photo)
+        tableView.reloadData()
 
         dismiss(animated: true)
     }

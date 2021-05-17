@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		766A579526529B7C0060D35B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766A579426529B7C0060D35B /* Photo.swift */; };
 		76D40CDB264EA7C20071045A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D40CDA264EA7C20071045A /* AppDelegate.swift */; };
 		76D40CDD264EA7C20071045A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D40CDC264EA7C20071045A /* SceneDelegate.swift */; };
 		76D40CDF264EA7C20071045A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D40CDE264EA7C20071045A /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		766A579426529B7C0060D35B /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		76D40CD7264EA7C20071045A /* 016Milestone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 016Milestone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D40CDA264EA7C20071045A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76D40CDC264EA7C20071045A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				76D40CDA264EA7C20071045A /* AppDelegate.swift */,
 				76D40CDC264EA7C20071045A /* SceneDelegate.swift */,
 				76D40CDE264EA7C20071045A /* ViewController.swift */,
+				766A579426529B7C0060D35B /* Photo.swift */,
 				76D40CE0264EA7C20071045A /* Main.storyboard */,
 				76D40CE3264EA7C30071045A /* Assets.xcassets */,
 				76D40CE5264EA7C30071045A /* LaunchScreen.storyboard */,
@@ -144,6 +147,7 @@
 				76D40CDB264EA7C20071045A /* AppDelegate.swift in Sources */,
 				76D40CDD264EA7C20071045A /* SceneDelegate.swift in Sources */,
 				76D40CF0264EAFFE0071045A /* DetailViewController.swift in Sources */,
+				766A579526529B7C0060D35B /* Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
