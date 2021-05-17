@@ -13,6 +13,8 @@ class ViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addPhoto))
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,6 +32,10 @@ class ViewController: UITableViewController {
             
             navigationController?.pushViewController(vs, animated: true)
         }
+    }
+    
+    @objc func addPhoto(){
+        //TODO: open photo app and choose one
     }
 }
 
