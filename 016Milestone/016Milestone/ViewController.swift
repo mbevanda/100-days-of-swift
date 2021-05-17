@@ -23,11 +23,16 @@ class ViewController: UITableViewController, UINavigationControllerDelegate, UII
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let photo = userPhotos[indexPath.row]
+        cell.textLabel?.text = photo.name
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vs = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
+            let photo = userPhotos[indexPath.row]
+            let path = getDocumentsDirectory().appendingPathComponent(photo.image)
+            vs.selectedImage = path.path
             
             navigationController?.pushViewController(vs, animated: true)
         }
