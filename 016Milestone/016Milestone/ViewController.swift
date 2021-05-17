@@ -29,13 +29,35 @@ class ViewController: UITableViewController, UINavigationControllerDelegate, UII
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let vs = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
-            let photo = userPhotos[indexPath.row]
-            let path = getDocumentsDirectory().appendingPathComponent(photo.image)
-            vs.selectedImage = path.path
+        let photo = userPhotos[indexPath.row]
+        let path = getDocumentsDirectory().appendingPathComponent(photo.image)
+        
+        
+        let ac = UIAlertController(title: "Chose action", message: "Do you want to load photo or rename it", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Load", style: .default){ [ weak self ] _ in
+            if let vs = self?.storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
+                vs.selectedImage = path.path
+                self?.navigationController?.pushViewController(vs, animated: true)
+            }
+        })
+        ac.addAction(UIAlertAction(title: "Rename", style: .default){ [ weak self ] _ in
+            self?.renamePhoto(photo)
+        })
+        present(ac, animated: true)
+    }
+    
+    func renamePhoto(_ photo: Photo) {
+        let ac = UIAlertController(title: "Rename photo", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
+            guard let newName = ac?.textFields?[0].text else { return }
+            photo.name = newName
             
-            navigationController?.pushViewController(vs, animated: true)
-        }
+            self?.tableView.reloadData()
+        })
+        
+        present(ac, animated: true)
     }
     
     @objc func addPhoto(){
