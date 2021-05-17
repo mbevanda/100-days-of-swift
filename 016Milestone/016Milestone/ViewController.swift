@@ -41,5 +41,26 @@ class ViewController: UITableViewController, UINavigationControllerDelegate, UII
         vc.delegate = self
         present(vc, animated: true)
     }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        //Extract the image from the dictionary that is passed as a parameter
+        guard let image = info[.editedImage] as? UIImage else { return }
+
+        //Generate a unique filename for it
+        let imageName = UUID().uuidString
+        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
+
+        //Convert it to a JPEG, then write that JPEG to disk
+        if let jpegData = image.jpegData(compressionQuality: 0.8) {
+            try? jpegData.write(to: imagePath)
+        }
+
+        dismiss(animated: true)
+    }
+
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
 }
 
