@@ -15,6 +15,18 @@ class ViewController: UITableViewController, UINavigationControllerDelegate, UII
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addPhoto))
+        
+        let defaults = UserDefaults.standard
+
+        if let savedPhotos = defaults.object(forKey: "photo") as? Data {
+            let jsonDecoder = JSONDecoder()
+
+            do {
+                userPhotos = try jsonDecoder.decode([Photo].self, from: savedPhotos)
+            } catch {
+                print("Failed to load photos")
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,6 +58,16 @@ class ViewController: UITableViewController, UINavigationControllerDelegate, UII
         present(ac, animated: true)
     }
     
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        if let savedData = try? jsonEncoder.encode(userPhotos) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "photo")
+        } else {
+            print("Failed to save photos.")
+        }
+    }
+    
     func renamePhoto(_ photo: Photo) {
         let ac = UIAlertController(title: "Rename photo", message: nil, preferredStyle: .alert)
         ac.addTextField()
@@ -55,6 +77,7 @@ class ViewController: UITableViewController, UINavigationControllerDelegate, UII
             photo.name = newName
             
             self?.tableView.reloadData()
+            self?.save()
         })
         
         present(ac, animated: true)
@@ -86,6 +109,7 @@ class ViewController: UITableViewController, UINavigationControllerDelegate, UII
         tableView.reloadData()
 
         dismiss(animated: true)
+        save()
     }
 
     func getDocumentsDirectory() -> URL {
