@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class ViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     var userPhotos:[String] = ["Unknown"]
 
@@ -35,7 +35,11 @@ class ViewController: UITableViewController {
     }
     
     @objc func addPhoto(){
-        //TODO: open photo app and choose one
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.allowsEditing = true
+        vc.delegate = self
+        present(vc, animated: true)
     }
 }
 
